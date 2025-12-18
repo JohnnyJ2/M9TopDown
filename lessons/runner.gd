@@ -1,5 +1,10 @@
 extends CharacterBody2D
 
+const UP_LEFT = Vector2.UP + Vector2.LEFT
+const UP_RIGHT = Vector2.UP + Vector2.RIGHT
+const DOWN_LEFT = Vector2.DOWN + Vector2.LEFT
+const DOWN_RIGHT = Vector2.DOWN + Vector2.RIGHT
+
 const RUNNER_DOWN = preload("uid://c0i1ik45p7rhh")
 const RUNNER_DOWN_LEFT = preload("uid://bork38ywg3paf")
 const RUNNER_DOWN_RIGHT = preload("uid://cst3aklarj68")
@@ -17,19 +22,6 @@ func _physics_process(_delta: float) -> void:
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = direction * max_speed
 	move_and_slide()
-	if direction.x > 0.0 and direction.y > 0.0:
-		_skin.texture = RUNNER_DOWN_RIGHT
-	elif direction.x < 0.0 and direction.y > 0.0:
-		_skin.texture = RUNNER_DOWN_LEFT
-	elif direction.x > 0.0 and direction.y < 0.0:
-		_skin.texture = RUNNER_UP_RIGHT
-	elif direction.x < 0.0 and direction.y < 0.0:
-		_skin.texture = RUNNER_UP_LEFT
-	elif direction.x > 0.0:
-		_skin.texture = RUNNER_RIGHT
-	elif direction.x < 0.0:
-		_skin.texture = RUNNER_LEFT
-	elif direction.y > 0.0:
-		_skin.texture = RUNNER_DOWN
-	elif direction.y < 0.0:
-		_skin.texture = RUNNER_UP
+	match direction_discrete:
+		Vector2.DOWN:
+		Vector2.RIGHT:
